@@ -1,6 +1,7 @@
 import requests
 import itertools
 import json
+from pprint import pprint
 
 de_url = "https://degreeexplorer.utoronto.ca/degreeExplorer/rest/dxPlanner/"
 
@@ -48,14 +49,26 @@ def get_prereqs(course: str):
     return response.json()
 
 
-def recurse(log_str: str, requisite_items: list[dict], courses: dict[str, dict]):
+def recurse(log_str: str, requisite_items: list[dict], courses: dict[str, dict], countType: str):
     p = PrerequisiteTree(eval_log_str(log_str), [])
+
+    if len(requisite_items) == 1:
+        p.groups.append(requisite_items[0]["code"])
+        return p
+    
+    if countType == "FCES" and p.logic == "OR":
+        requisite_items = return_fce_groups(requisite_items)
+    
     for i in requisite_items:
-        if i["courseEntity"]:
-            p.groups.append(i["code"])
+        if type(i) == tuple:
+            p.groups.append(recurse(invert_log_str(log_str), i, courses, countType))
         
         else:
-            p.groups.append(recurse(courses[i["code"]]["type"], courses[i["code"]]["requisiteItems"], courses))
+            if i["courseEntity"]:
+                p.groups.append(i["code"])
+                
+            else: 
+                p.groups.append(recurse(courses[i["code"]]["type"], courses[i["code"]]["requisiteItems"], courses, ""))
         
     return p
         
@@ -63,40 +76,46 @@ def recurse(log_str: str, requisite_items: list[dict], courses: dict[str, dict])
 def eval_log_str(log_str: str):
     return "OR" if log_str == "MINIMUM" else "AND"
 
+def invert_log_str(op: str):
+    return "OR" if op == "AND" else "AND"
+
 
 def contains_pointers(requisite_items: list):
     return any([i["courseEntity"] for i in requisite_items])
 
-def return_fce_groups(fce: float, courses: list):
+def return_fce_groups(courses: list):
     course_suffixes = {
-        0.5: [course for course in courses if course[7] == "F"],
-        1.0: [course for course in courses if course[7] == "Y"]
-    }
-    
+        0.5: [course for course in courses if course["code"][6] == "H"],
+        1.0: [course for course in courses if course["code"][6] == "Y"],
+        0.0: [course for course in courses if course["code"][6] not in "HY"]
+    }    
     if course_suffixes[0.5] != [] and course_suffixes[1.0] != []:
-        if fce == 1.0:
-            return list(itertools.combinations(course_suffixes[0.5], 2)) + course_suffixes[1.0]
+        return list(itertools.combinations(course_suffixes[0.5], 2)) + course_suffixes[1.0] + course_suffixes[0.0]
         
-        else:
-            return courses
-    
+    else:
+        return courses
+
 
 with open('sample_acorn_prereq_phy252.json', 'r') as file:
     data = json.load(file)
     courses = {}
+    referenced_nodes = set()
     for i in data["prerequisites"]:
         curr = i["shortIdentifier"]
         curr = str.strip(curr, "()") if curr[0] == "(" else curr
         courses[curr] = i
+        for j in i["requisiteItems"]:
+            if not j["courseEntity"]:
+                referenced_nodes.add(j["code"])
     
-    if len(courses) > 1:
-        p = PrerequisiteTree("OR", [])
-        for i in courses:
-            p.groups.append(recurse(courses[i]["type"], courses[i]["requisiteItems"], courses))
+    roots = {k for k in set.difference(set(courses.keys()), referenced_nodes)}
+
+    if len(roots) > 1:
+        p = PrerequisiteTree("AND", [])
+        for i in roots:
+            p.groups.append(recurse(courses[i]["type"], courses[i]["requisiteItems"], courses, courses[i]["countType"]))
             
     else:
-        p = recurse(courses["P1"]["type"], courses["P1"]["requisiteItems"], courses)
+        p = recurse(courses["P1"]["type"], courses["P1"]["requisiteItems"], courses, courses["P1"]["countType"])
     
-    
-    import pprint
-    pprint.pprint(p.get_dict())
+    pprint(p.get_dict())
