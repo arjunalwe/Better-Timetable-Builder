@@ -2,6 +2,7 @@ import requests
 import json
 import time
 import psycopg
+from prereq_parser_acorn import get_prereqs
 
 reference_url = "https://api.easi.utoronto.ca/ttb/reference-data"
 post_url = "https://api.easi.utoronto.ca/ttb/getPageableCourses"
@@ -77,13 +78,11 @@ with psycopg.connect(db_url) as conn:
         """)
 
         cur.execute("""
-            CREATE TABLE IF NOT EXISTS prereq_info (
-                source_code VARCHAR(15) NOT NULL,
-                target_code VARCHAR(15) NOT NULL,
-                type VARCHAR(25) NOT NULL,
-                condition SMALLINT NOT NULL,
-                req_group SMALLINT NOT NULL,
-                PRIMARY KEY (source_code, target_code, type, req_group)
+            CREATE TABLE IF NOT EXISTS course_prerequisites (
+                code TEXT PRIMARY KEY,
+                prereq_ast JSONB,
+                manual_review BOOLEAN NOT NULL DEFAULT TRUE,
+                validated BOOLEAN NOT NULL DEFAULT FALSE
             );
         """)
 
@@ -119,29 +118,35 @@ with psycopg.connect(db_url) as conn:
                             c["id"],
                             c["name"],
                             c["code"],
-                            c["section_code"],
+                            c["sectionCode"],
                             c["campus"],
                             c.get("sessions", []),
                             json.dumps(c.get("sections", [])),
                             description,
                             json.dumps(c),
-                        ),
+                        )
                     )
+                    
+                    prereqs, manual_review = get_prereqs(c["code"])
                     
                     cur.execute(
                         """
-                        INSERT INTO prereq_info (source_code, target_code, type, condition, req_group)
-                        VALUES (%s, %s, %s, %s, %s)
-                        ON CONFLICT (source_code, target_code, type, req_group) DO UPDATE SET
-                            condition = EXCLUDED.condition,
+                        INSERT INTO course_prerequisites (code, prereq_ast, manual_review)
+                        VALUES (%s, %s, %s)
+                        ON CONFLICT (code) DO UPDATE SET
+                            code = EXCLUDED.code,
+                            prereq_ast = EXCLUDED.prereq_ast,
+                            manual_review = EXCLUDED.manual_review
                         """,
                         (
                             c["code"],
-                            
+                            json.dumps(prereqs),
+                            manual_review
                         )
                     )
 
                 conn.commit()
+                print(f"page {payload['page']} completed")
                 payload["page"] += 1
 
             else:

@@ -1,17 +1,22 @@
 from __future__ import annotations
 import requests
 import itertools
+import time
+import re
 import json
 from pprint import pprint
 
 de_url = "https://degreeexplorer.utoronto.ca/degreeExplorer/rest/dxPlanner/"
 
-cookie = "_ga_9H2P504YR1=GS2.1.s1755903368$o1$g1$t1755905139$j60$l0$h0; _ga=GA1.1.1710729026.1755903368; _ga_JQDSE1YPEX=GS2.1.s1755913336$o1$g1$t1755913404$j58$l0$h0; redirectUrl=https://www.acorn.utoronto.ca/degree-explorer/dx-session-expired/; LtpaToken2=Q3ZUSiCEGyRSM25gsjl/Y5Pm8L/EZtoakjcqYWNW3B6jl7G3y6UeJRnIYzKswybsQSbdK790ALEytxBWwHp+ol2LFcmP26eUdHtyqTSM7qaseD4qtA/uZxZX0tHZsteYGRe7jn7RtZAANcaNxuismY9uw3kxLgA5PcVbZ3b1+hdNNTN6WIb/nj9af303h7atJrlTX8hovfoQVxjxxMpKy+Tl5L++PR577BnCVjI57bDU4+7ItboNrwKeTdwnblw47BbyT/4JIe07X+orHLLmiDfcwG2CeARs0Cl82rfGcdBQii1JcnpqsPwg4jV/c84WE/pSoqFnjeFHDZBW6S0gPspMFQcG+TAZuiXF4THeHqA+RaZbqak1O6WMl7IAUmhC7LGP6f4gham5WTrhCcSpHFptTnbFpk+N+HBBz2tlLnvT8irBP1HODZmDo7u53i/t; JSESSIONID=00004BGo2HMnT5uQOcYixQzUZ8uV0ue:DXSTUDENT-LBRT-PROD1; WSJSESSIONID=aa:DXSTUDENT-LBRT-PROD1; XSRF-TOKEN=Wd1f6SO/TFf/PKlM2yh/Frmrn3/2Hdgm+3cS+oJyGlM="
+cookie = "_ga_9H2P504YR1=GS2.1.s1755903368$o1$g1$t1755905139$j60$l0$h0; _ga=GA1.1.1710729026.1755903368; _ga_JQDSE1YPEX=GS2.1.s1755913336$o1$g1$t1755913404$j58$l0$h0; redirectUrl=https://www.acorn.utoronto.ca/degree-explorer/dx-session-expired/; LtpaToken2=Q3ZUSiCEGyRSM25gsjl/Y5Pm8L/EZtoakjcqYWNW3B6jl7G3y6UeJRnIYzKswybsQSbdK790ALEytxBWwHp+ol2LFcmP26eUdHtyqTSM7qaseD4qtA/uZxZX0tHZsteYCG5M92/FLQzjP5FuEw8Xsl5JvlvdT8qHcLxWMZxqYdVdj+2DvhYkvPdPOrhoBbcLDf1jH9FJRbwfjB1NuH+V0jmG1DVYbGoejOKsJV+/afg/akG0oLOeb3A+5Lj79ubkHvf4glU9inZOAcazK2duooVHgGX0ikXPztlGIY4MGhhHbsbJBBgAworPZzBWJoMElwwoa2oLENW2H0lklL4G1h4VKNcEwGv5eYhnT5lNANuzlHjATZGfpD+aXefJKjWdZ4Z6YGvmXke+XZLW+HQebVSH8evnrKQEliVSNQv9zQCm4YUVFHd1vH0v0gdDoNAy; JSESSIONID=0000Wk0WM4e0Via0GgjHVWiusOFrCFe:DXSTUDENT-LBRT-PROD1; WSJSESSIONID=aa:DXSTUDENT-LBRT-PROD1; XSRF-TOKEN=ucJdnQLE+j/phDh8FrHflY7uNymWt20erFn1thHKfIY="
+token = re.search(r'XSRF-TOKEN=([^;]+)', cookie).group(1)
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "application/json",
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "text/plain",
     "Cookie": cookie,
+    "X-XSRF-TOKEN": token,
     "Origin": "https://degreeexplorer.utoronto.ca",
     "Referer": "https://degreeexplorer.utoronto.ca/degreeExplorer/planner",
 }
@@ -20,18 +25,23 @@ def get_prereqs(course: str):
     row, col = 0, 3
     session = requests.Session()
     session.headers.update(headers)
-    session.post(de_url + f"saveCourseEntry?tabIndex=0&selRowIndex={row}&selColIndex={col}&newCourseCode={course}", headers=headers)
-    session.post(de_url + "reassessPlan?tabIndex=0", headers=headers)
-    response = session.get(de_url + f"getCellDetails?tabIndex=0&rowIndex={row}&colIndex={col}", headers=headers)
-    session.post(de_url + f"deleteCourseEntry?tabIndex=0&selRowIndex={row}&selColIndex={col}", headers=headers)
-    
+    response = session.post(de_url + f"saveCourseEntry?tabIndex=0&selRowIndex={row}&selColIndex={col}&newCourseCode={course}", json={})
+    pprint(f"POST {course}: {response.status_code}")
+    session.post(de_url + "reassessPlan?tabIndex=0", json={})
+    response = session.get(de_url + f"getCellDetails?tabIndex=0&rowIndex={row}&colIndex={col}")
+    session.post(de_url + f"deleteCourseEntry?tabIndex=0&selRowIndex={row}&selColIndex={col}", json={})
+    pprint(response.json())
+    pprint(f"GET {course}: {response.status_code}")
     return parse_prereq(response.json()["prerequisites"])
 
-def parse_prereq(data: dict) -> dict[str: str | list]:
+def parse_prereq(data: dict) -> tuple[dict[str: str | list], bool]:
     courses = {}
     referenced_nodes = set()
+    manual_review = False
     for i in data:
+        manual_review = False
         if i["countType"] == "GRADE":
+            manual_review = True
             grade = i["targetValue"]
             p = courses[i["displaySuffix"][-2:]]["requisiteItems"]
             for j in i["requisiteItems"]:
@@ -39,6 +49,10 @@ def parse_prereq(data: dict) -> dict[str: str | list]:
                     if k["code"] == j["code"]:
                         k["grade"] = grade
             continue
+        
+        elif i["countType"] == "FCES" and i["count"] > 1.0:
+            for j in i["requisiteItems"]:
+                j["grade"] = i["count"]
                 
         curr = i["shortIdentifier"]
         curr = str.strip(curr, "()") if curr[0] == "(" else curr
@@ -53,14 +67,15 @@ def parse_prereq(data: dict) -> dict[str: str | list]:
         p = {"logic": "AND", "groups": []}
         for i in roots:
             p["groups"].append(build_dict(courses[i]["type"], courses[i]["requisiteItems"], courses, courses[i]["countType"]))
-        return p
+        return (p, manual_review)
             
     elif len(roots) == 1:
         p = build_dict(courses["P1"]["type"], courses["P1"]["requisiteItems"], courses, courses["P1"]["countType"])
-        return p
+        return (p, manual_review)
     
     else:
-        return {}
+        print("Empty")
+        return ({}, manual_review)
     
 
 def build_dict(log_str: str, requisite_items: list[dict], courses: dict[str, dict], countType: str):
@@ -80,8 +95,11 @@ def build_dict(log_str: str, requisite_items: list[dict], courses: dict[str, dic
                 except KeyError:
                     p["groups"].append((i["code"], 50))
                 
-            else: 
+            elif not i["courseEntity"] and len(i["code"]) == 2: 
                 p["groups"].append(build_dict(courses[i["code"]]["type"], courses[i["code"]]["requisiteItems"], courses, ""))
+            
+            else:
+                p["groups"].append((i["display"], i.get("grade")))
         
     return p
 
@@ -103,5 +121,3 @@ def eval_log_str(log_str: str):
 def invert_log_str(op: str):
     return "OR" if op == "AND" else "AND"
 
-
-pprint(get_prereqs("MAT237Y1"))
