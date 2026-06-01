@@ -1,6 +1,8 @@
 import requests
 from constants import REFERENCE_URL, TTB_URL, HEADERS_TTB, HEADERS_ACORN
 import re
+import os
+from dotenv import load_dotenv
 
 def get_references() -> dict:
     reference = requests.get(REFERENCE_URL, headers=HEADERS_TTB)
@@ -50,8 +52,10 @@ def get_total_pages() -> int:
     return response.json()["payload"]["pageableCourse"]["total"] // 20 + 1
 
 
-def get_acorn_headers(cookie: str):
+def get_acorn_headers():
     headers = HEADERS_ACORN.copy()
+    load_dotenv()
+    cookie = os.environ.get("ACORN_COOKIE")
     
     headers["Cookie"] = cookie
     headers["X-XSRF-TOKEN"] = re.search(r"XSRF-TOKEN=([^;]+)", cookie).group(1)

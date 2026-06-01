@@ -16,6 +16,34 @@ services:
     restart: always
     ports:
       - 8080:8080
- 
+
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - "6379:6379"
+
+  ttb_worker:
+    build: .
+    restart: always
+    env_file: .env
+    volumes:
+      - .:/app
+    command: rq worker ttb_queue
+    depends_on:
+      - redis
+      - db
+
+  acorn_worker:
+    build: .
+    restart: always
+    env_file: .env
+    volumes:
+      - .:/app
+    command: rq worker acorn_queue
+    depends_on:
+      - redis
+      - db
+
 volumes:
   pgdata:

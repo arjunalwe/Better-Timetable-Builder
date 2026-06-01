@@ -1,5 +1,9 @@
 from psycopg_pool import ConnectionPool
-from constants import DB_URL
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+DB_URL = os.environ.get("DATABASE_URL")
 
 pool = ConnectionPool(conninfo=DB_URL, open=True)
 

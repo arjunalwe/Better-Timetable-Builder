@@ -1,6 +1,5 @@
 REFERENCE_URL = "https://api.easi.utoronto.ca/ttb/reference-data"
 TTB_URL = "https://api.easi.utoronto.ca/ttb/getPageableCourses"
-DB_URL = "postgresql://admin:password@localhost:5432/uoft_courses"
 ACORN_URL = "https://degreeexplorer.utoronto.ca/degreeExplorer/rest/dxPlanner/"
 
 HEADERS_TTB = {
@@ -20,3 +19,5 @@ HEADERS_ACORN = {
     "Origin": "https://degreeexplorer.utoronto.ca",
     "Referer": "https://degreeexplorer.utoronto.ca/degreeExplorer/planner",
 }
+
+DEGREE_CORD = (7, 20)
