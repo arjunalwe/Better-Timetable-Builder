@@ -1,3 +1,13 @@
+x-watch-config: &python-watch
+  watch:
+    - action: sync+restart
+      path: ./
+      target: /app
+      ignore:
+        - ".venv/"
+        - "__pycache__/"
+        - ".git/"
+
 services:
   db:
     image: postgres:16
@@ -23,27 +33,58 @@ services:
     ports:
       - "6379:6379"
 
-  ttb_worker:
+  redisinsight:
+    image: docker.io/redis/redisinsight:latest
+    ports:
+      - "5540:5540"
+    depends_on:
+      - redis
+    restart: always
+    volumes:
+      - redisinsight:/data
+
+  # The Dispatcher
+  orchestrator:
     build: .
+    develop: *python-watch
     restart: always
     env_file: .env
-    volumes:
-      - .:/app
-    command: rq worker ttb_queue
+    command: python orchestrator.py
     depends_on:
       - redis
       - db
 
-  acorn_worker:
+  # The Execution Engine
+  course_info_worker:
     build: .
+    develop: *python-watch
     restart: always
     env_file: .env
-    volumes:
-      - .:/app
-    command: rq worker acorn_queue
+    command: rq worker course_info_queue
+    depends_on:
+      - redis
+      - db
+
+  prereqs_worker:
+    build: .
+    develop: *python-watch
+    restart: always
+    env_file: .env
+    command: rq worker prereqs_queue
+    depends_on:
+      - redis
+      - db
+
+  program_worker:
+    build: .
+    develop: *python-watch
+    restart: always
+    env_file: .env
+    command: rq worker program_queue
     depends_on:
       - redis
       - db
 
 volumes:
   pgdata:
+  redisinsight:

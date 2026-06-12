@@ -7,5 +7,6 @@ load_dotenv()
 REDIS_URL = os.environ.get("REDIS_URL")
 
 conn = Redis.from_url(REDIS_URL)
-ttb_queue = Queue("ttb_queue", connection=conn)
-acorn_queue = Queue("acorn_queue", connection=conn)
+course_info_queue = Queue("course_info_queue", connection=conn)
+prereqs_queue = Queue("prereqs_queue", connection=conn)
+program_queue = Queue("program_queue", connection=conn)

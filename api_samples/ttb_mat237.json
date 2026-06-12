@@ -1,0 +1,1184 @@
+[
+    {
+        "id": "696f7d2320609159511a6755", 
+        "code": "MAT237Y1",
+        "name": "Multivariable Calculus with Proofs",
+        "coSec": {
+            "code": "",
+            "name": null
+        },
+        "notes": [
+            {
+                "name": "Course Note",
+                "type": "COURSE",
+                "content": "<p><strong>Delivery Instructions</strong></p><p><p>The online synchronous of this course will conduct the final exam in person.</p><p>Students are permitted to enrol in tutorial sections based on the lecture section they are enrolled in.&nbsp;</p><ul><li>Students enrolled in <strong>LEC0101</strong> may enrol in: TUT0101, TUT0201, and TUT5201.</li><li>Students enrolled in&nbsp;<strong>LEC5101&nbsp;</strong>may enrol in: TUT0102, and TUT5101.</li></ul></p>"
+            }
+        ],
+        "title": null,
+        "campus": "St. George",
+        "ucName": null,
+        "created": "2026-06-01@04:38:17.573",
+        "faculty": {
+            "code": "ARTSC",
+            "name": "Faculty of Arts and Science"
+        },
+        "breadths": [
+            {
+                "org": {
+                    "code": "ERIN",
+                    "name": "University of Toronto Mississauga"
+                },
+                "breadthTypes": [
+                    {
+                        "code": "Sci",
+                        "kind": "DISTRIBUTION",
+                        "type": "Science",
+                        "description": "Science"
+                    }
+                ]
+            },
+            {
+                "org": {
+                    "code": "SCAR",
+                    "name": "University of Toronto Scarborough"
+                },
+                "breadthTypes": []
+            },
+            {
+                "org": {
+                    "code": "ARTSC",
+                    "name": "Faculty of Arts and Science"
+                },
+                "breadthTypes": [
+                    {
+                        "code": "BR=5",
+                        "kind": "BREADTH",
+                        "type": "Physical Universe",
+                        "description": "BR=5 The Physical and Mathematical Universes"
+                    }
+                ]
+            }
+        ],
+        "duration": null,
+        "modified": null,
+        "sections": [
+            {
+                "name": "TUT5101",
+                "type": "Tutorial",
+                "notes": [
+                    {
+                        "name": "Section Note",
+                        "type": "SECTION",
+                        "content": ""
+                    }
+                ],
+                "tbaInd": "N",
+                "subTitle": "",
+                "cancelInd": "N",
+                "instructors": [],
+                "teachMethod": "TUT",
+                "waitlistInd": "N",
+                "enrolmentInd": "",
+                "firstMeeting": null,
+                "maxEnrolment": 54,
+                "meetingTimes": [
+                    {
+                        "end": {
+                            "day": 1,
+                            "millisofday": 64800000
+                        },
+                        "start": {
+                            "day": 1,
+                            "millisofday": 61200000
+                        },
+                        "building": {
+                            "buildingUrl": null,
+                            "buildingCode": "",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    },
+                    {
+                        "end": {
+                            "day": 3,
+                            "millisofday": 64800000
+                        },
+                        "start": {
+                            "day": 3,
+                            "millisofday": 61200000
+                        },
+                        "building": {
+                            "buildingUrl": null,
+                            "buildingCode": "",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    }
+                ],
+                "openLimitInd": "N",
+                "deliveryModes": [
+                    {
+                        "mode": "SYNC",
+                        "session": "20265"
+                    }
+                ],
+                "sectionNumber": "5101",
+                "currentWaitlist": 0,
+                "currentEnrolment": 51,
+                "enrolmentControls": [
+                    {
+                        "post": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subject": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "adminOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "quantity": 54,
+                        "sequence": 1,
+                        "secondOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "primaryOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "designation": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subjectPost": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "yearOfStudy": "*",
+                        "associatedOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "typeOfProgram": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "collaborativeOrgGroupCode": "*"
+                    }
+                ],
+                "linkedMeetingSections": [
+                    {
+                        "type": null,
+                        "teachMethod": "LEC",
+                        "sectionNumber": "5101"
+                    }
+                ]
+            },
+            {
+                "name": "LEC5101",
+                "type": "Lecture",
+                "notes": [
+                    {
+                        "name": "Section Note",
+                        "type": "SECTION",
+                        "content": ""
+                    }
+                ],
+                "tbaInd": "N",
+                "subTitle": "",
+                "cancelInd": "N",
+                "instructors": [
+                    {
+                        "lastName": "Pannu",
+                        "firstName": "Armanpreet"
+                    }
+                ],
+                "teachMethod": "LEC",
+                "waitlistInd": "Y",
+                "enrolmentInd": "",
+                "firstMeeting": null,
+                "maxEnrolment": 108,
+                "meetingTimes": [
+                    {
+                        "end": {
+                            "day": 1,
+                            "millisofday": 72000000
+                        },
+                        "start": {
+                            "day": 1,
+                            "millisofday": 64800000
+                        },
+                        "building": {
+                            "buildingUrl": null,
+                            "buildingCode": "",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    },
+                    {
+                        "end": {
+                            "day": 2,
+                            "millisofday": 72000000
+                        },
+                        "start": {
+                            "day": 2,
+                            "millisofday": 64800000
+                        },
+                        "building": {
+                            "buildingUrl": null,
+                            "buildingCode": "",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    },
+                    {
+                        "end": {
+                            "day": 4,
+                            "millisofday": 72000000
+                        },
+                        "start": {
+                            "day": 4,
+                            "millisofday": 64800000
+                        },
+                        "building": {
+                            "buildingUrl": null,
+                            "buildingCode": "",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    }
+                ],
+                "openLimitInd": "N",
+                "deliveryModes": [
+                    {
+                        "mode": "SYNC",
+                        "session": "20265"
+                    }
+                ],
+                "sectionNumber": "5101",
+                "currentWaitlist": 0,
+                "currentEnrolment": 94,
+                "enrolmentControls": [
+                    {
+                        "post": {
+                            "code": "",
+                            "name": ""
+                        },
+                        "subject": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "adminOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "quantity": 108,
+                        "sequence": 1,
+                        "secondOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "primaryOrg": {
+                            "code": "ARTSC",
+                            "name": "Faculty of Arts and Science"
+                        },
+                        "designation": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subjectPost": {
+                            "code": "",
+                            "name": ""
+                        },
+                        "yearOfStudy": "*",
+                        "associatedOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "typeOfProgram": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "collaborativeOrgGroupCode": "*"
+                    },
+                    {
+                        "post": {
+                            "code": "",
+                            "name": ""
+                        },
+                        "subject": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "adminOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "quantity": 108,
+                        "sequence": 2,
+                        "secondOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "primaryOrg": {
+                            "code": "ARCLA",
+                            "name": "John H. Daniels Faculty of Architecture, Landscape, & Design"
+                        },
+                        "designation": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subjectPost": {
+                            "code": "",
+                            "name": ""
+                        },
+                        "yearOfStudy": "*",
+                        "associatedOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "typeOfProgram": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "collaborativeOrgGroupCode": "*"
+                    },
+                    {
+                        "post": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subject": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "adminOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "quantity": 108,
+                        "sequence": 5,
+                        "secondOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "primaryOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "designation": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subjectPost": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "yearOfStudy": "*",
+                        "associatedOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "typeOfProgram": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "collaborativeOrgGroupCode": "*"
+                    }
+                ],
+                "linkedMeetingSections": []
+            },
+            {
+                "name": "TUT5201",
+                "type": "Tutorial",
+                "notes": [
+                    {
+                        "name": "Section Note",
+                        "type": "SECTION",
+                        "content": ""
+                    }
+                ],
+                "tbaInd": "N",
+                "subTitle": "",
+                "cancelInd": "N",
+                "instructors": [],
+                "teachMethod": "TUT",
+                "waitlistInd": "N",
+                "enrolmentInd": "",
+                "firstMeeting": null,
+                "maxEnrolment": 40,
+                "meetingTimes": [
+                    {
+                        "end": {
+                            "day": 2,
+                            "millisofday": 64800000
+                        },
+                        "start": {
+                            "day": 2,
+                            "millisofday": 61200000
+                        },
+                        "building": {
+                            "buildingUrl": "https://map.utoronto.ca/?id=1809#!m/494563",
+                            "buildingCode": "OI",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    },
+                    {
+                        "end": {
+                            "day": 4,
+                            "millisofday": 64800000
+                        },
+                        "start": {
+                            "day": 4,
+                            "millisofday": 61200000
+                        },
+                        "building": {
+                            "buildingUrl": "https://map.utoronto.ca/?id=1809#!m/494563",
+                            "buildingCode": "OI",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    }
+                ],
+                "openLimitInd": "N",
+                "deliveryModes": [
+                    {
+                        "mode": "INPER",
+                        "session": "20265"
+                    }
+                ],
+                "sectionNumber": "5201",
+                "currentWaitlist": 0,
+                "currentEnrolment": 11,
+                "enrolmentControls": [
+                    {
+                        "post": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subject": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "adminOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "quantity": 40,
+                        "sequence": 1,
+                        "secondOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "primaryOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "designation": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subjectPost": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "yearOfStudy": "*",
+                        "associatedOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "typeOfProgram": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "collaborativeOrgGroupCode": "*"
+                    }
+                ],
+                "linkedMeetingSections": [
+                    {
+                        "type": null,
+                        "teachMethod": "LEC",
+                        "sectionNumber": "0101"
+                    }
+                ]
+            },
+            {
+                "name": "TUT0102",
+                "type": "Tutorial",
+                "notes": [
+                    {
+                        "name": "Section Note",
+                        "type": "SECTION",
+                        "content": ""
+                    }
+                ],
+                "tbaInd": "N",
+                "subTitle": "",
+                "cancelInd": "N",
+                "instructors": [],
+                "teachMethod": "TUT",
+                "waitlistInd": "N",
+                "enrolmentInd": "",
+                "firstMeeting": null,
+                "maxEnrolment": 54,
+                "meetingTimes": [
+                    {
+                        "end": {
+                            "day": 2,
+                            "millisofday": 36000000
+                        },
+                        "start": {
+                            "day": 2,
+                            "millisofday": 32400000
+                        },
+                        "building": {
+                            "buildingUrl": null,
+                            "buildingCode": "",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    },
+                    {
+                        "end": {
+                            "day": 4,
+                            "millisofday": 36000000
+                        },
+                        "start": {
+                            "day": 4,
+                            "millisofday": 32400000
+                        },
+                        "building": {
+                            "buildingUrl": null,
+                            "buildingCode": "",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    }
+                ],
+                "openLimitInd": "N",
+                "deliveryModes": [
+                    {
+                        "mode": "SYNC",
+                        "session": "20265"
+                    }
+                ],
+                "sectionNumber": "0102",
+                "currentWaitlist": 0,
+                "currentEnrolment": 42,
+                "enrolmentControls": [
+                    {
+                        "post": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subject": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "adminOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "quantity": 54,
+                        "sequence": 1,
+                        "secondOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "primaryOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "designation": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subjectPost": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "yearOfStudy": "*",
+                        "associatedOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "typeOfProgram": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "collaborativeOrgGroupCode": "*"
+                    }
+                ],
+                "linkedMeetingSections": [
+                    {
+                        "type": null,
+                        "teachMethod": "LEC",
+                        "sectionNumber": "5101"
+                    }
+                ]
+            },
+            {
+                "name": "LEC0101",
+                "type": "Lecture",
+                "notes": [
+                    {
+                        "name": "Section Note",
+                        "type": "SECTION",
+                        "content": ""
+                    }
+                ],
+                "tbaInd": "N",
+                "subTitle": "",
+                "cancelInd": "N",
+                "instructors": [
+                    {
+                        "lastName": "Giannetto",
+                        "firstName": "Daniele"
+                    },
+                    {
+                        "lastName": "Manganello",
+                        "firstName": "Federico"
+                    }
+                ],
+                "teachMethod": "LEC",
+                "waitlistInd": "Y",
+                "enrolmentInd": "",
+                "firstMeeting": null,
+                "maxEnrolment": 120,
+                "meetingTimes": [
+                    {
+                        "end": {
+                            "day": 2,
+                            "millisofday": 46800000
+                        },
+                        "start": {
+                            "day": 2,
+                            "millisofday": 39600000
+                        },
+                        "building": {
+                            "buildingUrl": "https://map.utoronto.ca/?id=1809#!m/494470",
+                            "buildingCode": "BA",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    },
+                    {
+                        "end": {
+                            "day": 3,
+                            "millisofday": 46800000
+                        },
+                        "start": {
+                            "day": 3,
+                            "millisofday": 39600000
+                        },
+                        "building": {
+                            "buildingUrl": "https://map.utoronto.ca/?id=1809#!m/494470",
+                            "buildingCode": "BA",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    },
+                    {
+                        "end": {
+                            "day": 5,
+                            "millisofday": 46800000
+                        },
+                        "start": {
+                            "day": 5,
+                            "millisofday": 39600000
+                        },
+                        "building": {
+                            "buildingUrl": "https://map.utoronto.ca/?id=1809#!m/494470",
+                            "buildingCode": "BA",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    }
+                ],
+                "openLimitInd": "N",
+                "deliveryModes": [
+                    {
+                        "mode": "INPER",
+                        "session": "20265"
+                    }
+                ],
+                "sectionNumber": "0101",
+                "currentWaitlist": 0,
+                "currentEnrolment": 57,
+                "enrolmentControls": [
+                    {
+                        "post": {
+                            "code": "",
+                            "name": ""
+                        },
+                        "subject": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "adminOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "quantity": 120,
+                        "sequence": 1,
+                        "secondOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "primaryOrg": {
+                            "code": "ARTSC",
+                            "name": "Faculty of Arts and Science"
+                        },
+                        "designation": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subjectPost": {
+                            "code": "",
+                            "name": ""
+                        },
+                        "yearOfStudy": "*",
+                        "associatedOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "typeOfProgram": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "collaborativeOrgGroupCode": "*"
+                    },
+                    {
+                        "post": {
+                            "code": "",
+                            "name": ""
+                        },
+                        "subject": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "adminOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "quantity": 120,
+                        "sequence": 2,
+                        "secondOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "primaryOrg": {
+                            "code": "ARCLA",
+                            "name": "John H. Daniels Faculty of Architecture, Landscape, & Design"
+                        },
+                        "designation": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subjectPost": {
+                            "code": "",
+                            "name": ""
+                        },
+                        "yearOfStudy": "*",
+                        "associatedOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "typeOfProgram": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "collaborativeOrgGroupCode": "*"
+                    },
+                    {
+                        "post": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subject": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "adminOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "quantity": 120,
+                        "sequence": 5,
+                        "secondOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "primaryOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "designation": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subjectPost": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "yearOfStudy": "*",
+                        "associatedOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "typeOfProgram": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "collaborativeOrgGroupCode": "*"
+                    }
+                ],
+                "linkedMeetingSections": []
+            },
+            {
+                "name": "TUT0101",
+                "type": "Tutorial",
+                "notes": [
+                    {
+                        "name": "Section Note",
+                        "type": "SECTION",
+                        "content": ""
+                    }
+                ],
+                "tbaInd": "N",
+                "subTitle": "",
+                "cancelInd": "N",
+                "instructors": [],
+                "teachMethod": "TUT",
+                "waitlistInd": "N",
+                "enrolmentInd": "",
+                "firstMeeting": null,
+                "maxEnrolment": 40,
+                "meetingTimes": [
+                    {
+                        "end": {
+                            "day": 2,
+                            "millisofday": 36000000
+                        },
+                        "start": {
+                            "day": 2,
+                            "millisofday": 32400000
+                        },
+                        "building": {
+                            "buildingUrl": "https://map.utoronto.ca/?id=1809#!m/494470",
+                            "buildingCode": "BA",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    },
+                    {
+                        "end": {
+                            "day": 4,
+                            "millisofday": 36000000
+                        },
+                        "start": {
+                            "day": 4,
+                            "millisofday": 32400000
+                        },
+                        "building": {
+                            "buildingUrl": "https://map.utoronto.ca/?id=1809#!m/494550",
+                            "buildingCode": "FE",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    }
+                ],
+                "openLimitInd": "N",
+                "deliveryModes": [
+                    {
+                        "mode": "INPER",
+                        "session": "20265"
+                    }
+                ],
+                "sectionNumber": "0101",
+                "currentWaitlist": 0,
+                "currentEnrolment": 11,
+                "enrolmentControls": [
+                    {
+                        "post": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subject": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "adminOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "quantity": 40,
+                        "sequence": 1,
+                        "secondOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "primaryOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "designation": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subjectPost": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "yearOfStudy": "*",
+                        "associatedOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "typeOfProgram": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "collaborativeOrgGroupCode": "*"
+                    }
+                ],
+                "linkedMeetingSections": [
+                    {
+                        "type": null,
+                        "teachMethod": "LEC",
+                        "sectionNumber": "0101"
+                    }
+                ]
+            },
+            {
+                "name": "TUT0201",
+                "type": "Tutorial",
+                "notes": [
+                    {
+                        "name": "Section Note",
+                        "type": "SECTION",
+                        "content": "<p>April 24, 2025: room changed</p>"
+                    }
+                ],
+                "tbaInd": "N",
+                "subTitle": "",
+                "cancelInd": "N",
+                "instructors": [],
+                "teachMethod": "TUT",
+                "waitlistInd": "N",
+                "enrolmentInd": "",
+                "firstMeeting": null,
+                "maxEnrolment": 40,
+                "meetingTimes": [
+                    {
+                        "end": {
+                            "day": 3,
+                            "millisofday": 50400000
+                        },
+                        "start": {
+                            "day": 3,
+                            "millisofday": 46800000
+                        },
+                        "building": {
+                            "buildingUrl": "https://map.utoronto.ca/?id=1809#!m/494470",
+                            "buildingCode": "BA",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    },
+                    {
+                        "end": {
+                            "day": 5,
+                            "millisofday": 50400000
+                        },
+                        "start": {
+                            "day": 5,
+                            "millisofday": 46800000
+                        },
+                        "building": {
+                            "buildingUrl": "https://map.utoronto.ca/?id=1809#!m/494470",
+                            "buildingCode": "BA",
+                            "buildingName": null,
+                            "buildingRoomNumber": "",
+                            "buildingRoomSuffix": ""
+                        },
+                        "repetition": "WEEKLY",
+                        "sessionCode": "20265",
+                        "repetitionTime": "ONCE_A_WEEK"
+                    }
+                ],
+                "openLimitInd": "N",
+                "deliveryModes": [
+                    {
+                        "mode": "INPER",
+                        "session": "20265"
+                    }
+                ],
+                "sectionNumber": "0201",
+                "currentWaitlist": 0,
+                "currentEnrolment": 35,
+                "enrolmentControls": [
+                    {
+                        "post": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subject": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "adminOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "quantity": 40,
+                        "sequence": 1,
+                        "secondOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "primaryOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "designation": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "subjectPost": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "yearOfStudy": "*",
+                        "associatedOrg": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "typeOfProgram": {
+                            "code": "*",
+                            "name": "All"
+                        },
+                        "collaborativeOrgGroupCode": "*"
+                    }
+                ],
+                "linkedMeetingSections": [
+                    {
+                        "type": null,
+                        "teachMethod": "LEC",
+                        "sectionNumber": "0101"
+                    }
+                ]
+            }
+        ],
+        "sessions": [
+            "20265"
+        ],
+        "cancelInd": "N",
+        "lastSaved": 0,
+        "maxCredit": 1.0,
+        "minCredit": 1.0,
+        "tb1Active": false,
+        "tb2Active": false,
+        "department": {
+            "code": "MAT",
+            "name": "Department of Mathematics"
+        },
+        "fullyOnline": false,
+        "primaryFull": false,
+        "sectionCode": "Y",
+        "cmCourseInfo": {
+            "note": null,
+            "title": "Multivariable Calculus with Proofs",
+            "division": "Arts and Science, Faculty of",
+            "description": "Elementary topology in Euclidean space. Differential calculus of vector valued functions of a vector variable. Implicit and inverse function theorems, regular surfaces. Optimization, Lagrange multipliers, multivariable Taylor polynomials. Integral calculus with the Jordan measure. Fubini\u2019s theorem, change of variables. Line and surface integrals. Vector calculus in two- and three-dimensions. Green\u2019s theorem, Divergence theorem, Stokes\u2019 theorem. Fourier series. This course is recommended for students interested in proof-based multivariable calculus with balanced emphasis between theory and applications.",
+            "exclusionsText": "",
+            "corequisitesText": "",
+            "prerequisitesText": "<p>[MAT133Y1/ (MAT135H1, MAT136H1)/ (MAT135H5, MAT136H5)/ (MATA30H3/ MATA31H3, MATA36H3), MAT138H1/ MAT102H5/ MAT246H1]/ MAT137Y1/ MAT137Y5/ (MAT137H5, MAT139H5)/ (MATA30H3/ MATA31H3, MATA37H3)/ MAT157Y1/ MAT157Y5/ (MAT157H5, MAT159H5), MAT223H1/ MATA22H3/ MATA23H3/ MAT240H1/ MAT240H5</p>",
+            "levelOfInstruction": "undergraduate",
+            "breadthRequirements": [
+                "The Physical and Mathematical Universes (5)"
+            ],
+            "publicationSections": [
+                "Mathematics"
+            ],
+            "cmPublicationSections": [
+                {
+                    "section": "Mathematics",
+                    "subSections": null
+                }
+            ],
+            "recommendedPreparation": "",
+            "distributionRequirements": [
+                "Science"
+            ]
+        },
+        "subscriptionTtb": false,
+        "primaryTeachMethod": "LEC",
+        "primaryWaitlistable": false,
+        "subscriptionOpenData": false
+    }
+]

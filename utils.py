@@ -1,8 +1,10 @@
 import requests
-from constants import REFERENCE_URL, TTB_URL, HEADERS_TTB, HEADERS_ACORN
+from constants import REFERENCE_URL, TTB_URL, HEADERS_TTB, HEADERS_ACORN, ACORN_URL
 import re
 import os
-from dotenv import load_dotenv
+from config import conn as redis_conn
+from config import program_queue
+from rq import Queue
 
 def get_references() -> dict:
     reference = requests.get(REFERENCE_URL, headers=HEADERS_TTB)
@@ -52,12 +54,53 @@ def get_total_pages() -> int:
     return response.json()["payload"]["pageableCourse"]["total"] // 20 + 1
 
 
-def get_acorn_headers():
+_session = None
+_session_pid = None
+
+def get_session() -> requests.Session:
+    global _session, _session_pid
+    current_pid = os.getpid()
+
+    if _session is None or _session_pid != current_pid:
+        if _session is not None:
+            _session.close()
+            
+        _session = requests.Session()
+        _session_pid = current_pid
+        
+    return _session
+
+
+def get_dx_headers():
     headers = HEADERS_ACORN.copy()
-    load_dotenv()
-    cookie = os.environ.get("ACORN_COOKIE")
+    response = redis_conn.blpop("acorn_cookies")
+        
+    raw_cookie_string = response[1].decode("utf-8")
+    
+    tab, cookie = raw_cookie_string.split("|")    
     
     headers["Cookie"] = cookie
     headers["X-XSRF-TOKEN"] = re.search(r"XSRF-TOKEN=([^;]+)", cookie).group(1)
     
-    return headers
+    return tab, headers
+
+
+def get_programs() -> list[str]:
+    tab, headers = get_dx_headers()
+    session = get_session()
+    
+    session.headers.update(headers)
+    
+    as_response = session.get(ACORN_URL + f"programSuggestions?searchText=AS")
+    ah_response = session.get(ACORN_URL + f"programSuggestions?searchText=AH")
+    
+    as_response.raise_for_status()
+    ah_response.raise_for_status()
+    
+    return_cookie(headers, tab)
+    
+    return as_response.json() + ah_response.json()
+
+
+def return_cookie(headers: str, tab: str):
+    redis_conn.lpush("acorn_cookies", f"{tab}|{headers['Cookie']}")

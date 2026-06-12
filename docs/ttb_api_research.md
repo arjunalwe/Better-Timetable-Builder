@@ -38,3 +38,6 @@ Payload Structure
 
 
 API only returns 20 courses at a time, regardless of pageSize. page is the important variable.
+
+Database URL (non-docker):
+postgresql://admin:password@localhost:5432/uoft_courses

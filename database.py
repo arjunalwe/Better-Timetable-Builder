@@ -5,18 +5,18 @@ import os
 load_dotenv()
 DB_URL = os.environ.get("DATABASE_URL")
 
-pool = ConnectionPool(conninfo=DB_URL, open=True)
+pool = None
+pool_pid = None
 
-# with pool.connection() as conn:
-#     with conn.cursor() as cur:
-#         cur.execute("""
-#                     CREATE TABLE IF NOT EXISTS bronze(
-#                         id VARCHAR(30) PRIMARY KEY,
-#                         course VARCHAR(8),
-#                         ttb_json JSONB,
-#                         acorn_json JSONB, 
-#                         status VARCHAR(20) DEFAULT 'PENDING',
-#                         updated TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-#                     )
-#                     """)
-#         conn.commit()
+def get_db_pool() -> ConnectionPool:
+    global _pool, _pool_pid
+    current_pid = os.getpid()
+    
+    if _pool is None or _pool_pid != current_pid:
+        if _pool is not None:
+            _pool.close() 
+            
+        _pool = ConnectionPool(conninfo=DB_URL, open=True)
+        _pool_pid = current_pid
+        
+    return _pool
