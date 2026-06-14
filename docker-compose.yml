@@ -43,7 +43,15 @@ services:
     volumes:
       - redisinsight:/data
 
-  # The Dispatcher
+  rq-dashboard:
+      image: eoranged/rq-dashboard:latest
+      ports:
+        - "9181:9181"
+      environment:
+        - RQ_DASHBOARD_REDIS_URL=redis://redis:6379
+      depends_on:
+        - redis
+
   orchestrator:
     build: .
     develop: *python-watch
@@ -64,6 +72,9 @@ services:
     depends_on:
       - redis
       - db
+    deploy:
+      replicas: 15
+    stop_grace_period: 50s
 
   prereqs_worker:
     build: .
@@ -74,6 +85,9 @@ services:
     depends_on:
       - redis
       - db
+    deploy:
+      replicas: 5
+    stop_grace_period: 60s
 
   program_worker:
     build: .
@@ -84,6 +98,9 @@ services:
     depends_on:
       - redis
       - db
+    deploy:
+      replicas: 5
+    stop_grace_period: 50s
 
 volumes:
   pgdata:

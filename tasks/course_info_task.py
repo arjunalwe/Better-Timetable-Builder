@@ -3,9 +3,6 @@ import utils
 from constants import TTB_URL, HEADERS_TTB
 from database import get_db_pool
 import datetime
-from rq import Queue
-from tasks.prereqs_task import pull_prereqs
-from config import prereqs_queue
 import json
 
 def pull_course_info(page: int, start_time: datetime.datetime):
@@ -28,13 +25,25 @@ def pull_course_info(page: int, start_time: datetime.datetime):
     
     with get_db_pool().connection() as conn:
         with conn.cursor() as cur:
+            unique_records = {}
+            for i in range(len(ids)):
+                unique_records[ids[i]] = (courses[i], info_jsons[i], statuses[i])
+
+            clean_ids = list(unique_records.keys())
+            clean_courses = [val[0] for val in unique_records.values()]
+            clean_info_jsons = [val[1] for val in unique_records.values()]
+            clean_statuses = [val[2] for val in unique_records.values()]    
+
             cur.execute("""
                 INSERT INTO bronze_course_data (id, course, info_json, status)
-                SELECT * FROM UNNEST(%s, %s, %s, %s)
-                ON CONFLICT (id) DO UPDATE 
-                SET 
+                SELECT * FROM UNNEST(%s::text[], %s::text[], %s::jsonb[], %s::text[])
+                ON CONFLICT (id) DO UPDATE SET
+                    course = EXCLUDED.course,
                     info_json = EXCLUDED.info_json,
-                    status = EXCLUDED.status,
+                    status = CASE 
+                        WHEN bronze_course_data.status = 'PREREQS PULLED' THEN 'PREREQS PULLED'
+                        ELSE excluded.status,
+                    END
                     last_seen = CURRENT_TIMESTAMP,
                     updated = CASE 
                         WHEN bronze_course_data.info_json IS DISTINCT FROM EXCLUDED.info_json 
@@ -42,17 +51,5 @@ def pull_course_info(page: int, start_time: datetime.datetime):
                         ELSE bronze_course_data.updated 
                     END
                 RETURNING id, updated
-            """, (list(ids), list(courses), list(info_jsons), list(statuses)))
+            """, (clean_ids, clean_courses, clean_info_jsons, clean_statuses))
             
-            results = cur.fetchall()
-
-    prereq_jobs = []
-    for row in results:
-        course_id = row[0]
-        updated_time = row[1]
-        
-        if updated_time >= start_time:
-            prereq_jobs.append(Queue.prepare_data(pull_prereqs, (course_id,)))
-            
-    if prereq_jobs:
-        prereqs_queue.enqueue_many(prereq_jobs)

@@ -5,10 +5,10 @@ import os
 load_dotenv()
 DB_URL = os.environ.get("DATABASE_URL")
 
-pool = None
-pool_pid = None
+_pool = None
+_pool_pid = None
 
-def get_db_pool() -> ConnectionPool:
+def get_db_pool(db_url: str=DB_URL) -> ConnectionPool:
     global _pool, _pool_pid
     current_pid = os.getpid()
     
@@ -16,7 +16,7 @@ def get_db_pool() -> ConnectionPool:
         if _pool is not None:
             _pool.close() 
             
-        _pool = ConnectionPool(conninfo=DB_URL, open=True)
+        _pool = ConnectionPool(conninfo=db_url, open=True)
         _pool_pid = current_pid
         
     return _pool

@@ -1,5 +1,5 @@
 from __future__ import annotations
-import requests
+from requests.exceptions import HTTPError
 from utils import get_dx_headers, get_session, return_cookie
 from constants import ACORN_URL, DEGREE_CORD
 from database import get_db_pool
@@ -7,13 +7,16 @@ import json
 import os
 
 def pull_prereqs(id: str):
+    headers = None
+    tab = None
     try:
-        session = get_session()
         tab, headers = get_dx_headers()
+        session = get_session()
         session.headers.update(headers)
 
         row, col = DEGREE_CORD
         course = id[0:8]
+    
         response = session.post(
             ACORN_URL
             + f"saveCourseEntry?tabIndex={tab}&selRowIndex={row}&selColIndex={col}&newCourseCode={course}",
@@ -52,5 +55,15 @@ def pull_prereqs(id: str):
 
             if cur.rowcount == 0:
                 raise ValueError(f"{course, id} not found in bronze course data")
+            
+    except HTTPError as error:
+            print(f"\n{'='*50}", flush=True)
+            print(f"FATAL API ERROR ON COURSE: {course} | TAB: {tab}", flush=True)
+            if error.response is not None:
+                print(error.response.text, flush=True)
+            print(f"{'='*50}\n", flush=True)
+            raise error
+        
     finally:
-        return_cookie(headers, tab)
+        if headers is not None and tab is not None:
+            return_cookie(headers, tab)
