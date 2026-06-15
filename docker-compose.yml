@@ -55,7 +55,7 @@ services:
   orchestrator:
     build: .
     develop: *python-watch
-    restart: always
+    restart: no
     env_file: .env
     command: python orchestrator.py
     depends_on:

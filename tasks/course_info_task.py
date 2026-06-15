@@ -42,8 +42,8 @@ def pull_course_info(page: int, start_time: datetime.datetime):
                     info_json = EXCLUDED.info_json,
                     status = CASE 
                         WHEN bronze_course_data.status = 'PREREQS PULLED' THEN 'PREREQS PULLED'
-                        ELSE excluded.status,
-                    END
+                        ELSE excluded.status
+                    END,
                     last_seen = CURRENT_TIMESTAMP,
                     updated = CASE 
                         WHEN bronze_course_data.info_json IS DISTINCT FROM EXCLUDED.info_json 
