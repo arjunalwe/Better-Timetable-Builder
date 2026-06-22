@@ -1,4 +1,5 @@
 import requests
+import json
 from constants import ACORN_URL
 from constants import TTB_URL, HEADERS_TTB, REFERENCE_URL, MIN_FETCH_INTERVAL
 from database import get_db_pool
@@ -21,13 +22,17 @@ from database import get_db_pool
 
 # print(data)
 
-with get_db_pool("postgresql://admin:password@localhost:5432/uoft_courses").connection() as conn:
+with get_db_pool(
+    "postgresql://admin:password@localhost:5432/uoft_courses"
+).connection() as conn:
     with conn.cursor() as cur:
         cur.execute("""
-                    SELECT id FROM bronze_course_data 
-                    WHERE prereq_json IS NULL 
-                    OR updated <= CURRENT_TIMESTAMP - CAST (%s as INTERVAL);
-                    """, (MIN_FETCH_INTERVAL,)) 
-        
-        courses = cur.fetchall()
-        print(courses)
+                    SELECT DISTINCT 
+                        jsonb_path_query(json::jsonb, '$.** ? (@.categoryEntity == true).code'::jsonpath) #>> '{}' AS category_code,
+                        catalog_year
+                    FROM bronze_program_data
+                    WHERE json IS NOT NULL;
+                    """)
+
+        categories = cur.fetchall()[0][1]
+        print(categories, type(categories))

@@ -6,10 +6,11 @@ from constants import ACORN_URL, CATALOG_YEAR
 from database import get_db_pool
 
 def pull_programs(program: str):
-    tab, headers = get_dx_headers()
-    session = get_session()
-
+    headers = None
+    tab = None
     try:
+        tab, headers = get_dx_headers() 
+        session = get_session()
         session.headers.update(headers)
 
         program_code = program.split("-")[0].strip()
@@ -50,6 +51,7 @@ def pull_programs(program: str):
                         name = EXCLUDED.name,
                         json = EXCLUDED.json,
                         status = EXCLUDED.status,
+                        is_active = TRUE,
                         last_seen = CURRENT_TIMESTAMP,
                         updated = CASE 
                             WHEN bronze_program_data.json IS DISTINCT FROM EXCLUDED.json 

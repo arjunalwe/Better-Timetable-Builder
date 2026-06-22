@@ -5,6 +5,7 @@ import os
 from config import conn as redis_conn
 from config import program_queue
 from rq import Queue
+import time
 
 def get_references() -> dict:
     reference = requests.get(REFERENCE_URL, headers=HEADERS_TTB)
@@ -73,7 +74,7 @@ def get_session() -> requests.Session:
 
 def get_dx_headers():
     headers = HEADERS_ACORN.copy()
-    response = redis_conn.blpop("acorn_cookies")
+    response = redis_conn.blpop("acorn_cookies", timeout=10)
         
     raw_cookie_string = response[1].decode("utf-8")
     
@@ -104,3 +105,8 @@ def get_programs() -> list[str]:
 
 def return_cookie(headers: str, tab: str):
     redis_conn.lpush("acorn_cookies", f"{tab}|{headers['Cookie']}")
+
+ 
+def pause_until_queue(timeout: int, *queues: Queue):
+    while any(len(q) > 0 or q.started_job_registry.get_job_count() > 0 for q in queues):
+        time.sleep(timeout)

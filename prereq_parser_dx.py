@@ -1,50 +1,6 @@
 from __future__ import annotations
-import requests
 import itertools
-import time
-import re
-import json
 from pprint import pprint
-
-cookie = "_ga_9H2P504YR1=GS2.1.s1755903368$o1$g1$t1755905139$j60$l0$h0; _ga=GA1.1.1710729026.1755903368; _ga_JQDSE1YPEX=GS2.1.s1755913336$o1$g1$t1755913404$j58$l0$h0; redirectUrl=https://www.acorn.utoronto.ca/degree-explorer/dx-session-expired/; LtpaToken2=Q3ZUSiCEGyRSM25gsjl/Y5Pm8L/EZtoakjcqYWNW3B6jl7G3y6UeJRnIYzKswybsQSbdK790ALEytxBWwHp+ol2LFcmP26eUdHtyqTSM7qYmRHFgJ2qdLpXJEj94xd/0l+W7Skw5yVP/YiBnD8ZjUOhbvndzoIhx4lVatDKt1yjux/Nn0+fSWFDr1TRSj14FPVbSIn4U5iRqu/oZy3uRX0o6swqQ9/Z6wDgJ7O9FMGMpIpNS4G4uq6yj2zZBiD1dT4WrrG1m7wp8I7UP2amieYSEGpILAheA6b65+3xN19fXMAl/TOT2+1MNc5MyL3rU6fctVJfAUyDYGXQEXerPhyvTwM/P0rfI6r3mlbx1d9Z6Le2HJli04tszA+u0V6n6wel6quUS37oIZ4xB8nnBbe9Qdr9UV4UxClzt0TWt5VbjBIzNSB84hvw8gXrOxWts; JSESSIONID=0000bnWTTEF1Y7Y3N70xAFBCQJulHi4:DXSTUDENT-LBRT-PROD2; WSJSESSIONID=aa:DXSTUDENT-LBRT-PROD2; XSRF-TOKEN=rwsqyAkqrJJBFD325dD4vFsyV3+1u4uPtHoXHiIIJ3I="
-token = re.search(r"XSRF-TOKEN=([^;]+)", cookie).group(1)
-
-headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "application/json, text/plain, */*",
-    "Content-Type": "text/plain",
-    "Cookie": cookie,
-    "X-XSRF-TOKEN": token,
-    "Origin": "https://degreeexplorer.utoronto.ca",
-    "Referer": "https://degreeexplorer.utoronto.ca/degreeExplorer/planner",
-}
-
-
-def get_prereqs(course: str):
-    row, col = 0, 3
-    session = requests.Session()
-    session.headers.update(headers)
-    response = session.post(
-        de_url
-        + f"saveCourseEntry?tabIndex=0&selRowIndex={row}&selColIndex={col}&newCourseCode={course}",
-        json={},
-    )
-    pprint(f"POST {course}: {response.status_code}")
-    session.post(de_url + "reassessPlan?tabIndex=0", json={})
-    response = session.get(
-        de_url + f"getCellDetails?tabIndex=0&rowIndex={row}&colIndex={col}"
-    )
-    session.post(
-        de_url + f"deleteCourseEntry?tabIndex=0&selRowIndex={row}&selColIndex={col}",
-        json={},
-    )
-    pprint(f"GET {course}: {response.status_code}")
-    return (
-        parse_prereq(response.json()["prerequisites"], "P"),
-        parse_prereq(response.json()["corequisites"], "C"),
-        parse_prereq(["exclusions"], "E"),
-    ), parse_prereq(["orderedExclusions"], "OE")
-
 
 def parse_prereq(data: dict, type: str) -> tuple[dict[str : str | list], bool]:
     manual_review = False

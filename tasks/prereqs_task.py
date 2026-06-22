@@ -4,7 +4,6 @@ from utils import get_dx_headers, get_session, return_cookie
 from constants import ACORN_URL, DEGREE_CORD
 from database import get_db_pool
 import json
-import os
 
 def pull_prereqs(id: str):
     headers = None

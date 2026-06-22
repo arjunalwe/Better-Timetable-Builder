@@ -76,12 +76,12 @@ services:
       replicas: 15
     stop_grace_period: 50s
 
-  prereqs_worker:
+  prereq_worker:
     build: .
     develop: *python-watch
     restart: always
     env_file: .env
-    command: rq worker prereqs_queue
+    command: rq worker prereq_queue
     depends_on:
       - redis
       - db
@@ -100,6 +100,19 @@ services:
       - db
     deploy:
       replicas: 5
+    stop_grace_period: 50s
+
+  category_worker:
+    build: .
+    develop: *python-watch
+    restart: always
+    env_file: .env
+    command: rq worker category_queue
+    depends_on:
+      - redis
+      - db
+    deploy:
+      replicas: 10
     stop_grace_period: 50s
 
 volumes:
