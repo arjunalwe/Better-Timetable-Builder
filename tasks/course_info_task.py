@@ -35,22 +35,22 @@ def pull_course_info(page: int, start_time: datetime.datetime):
             clean_statuses = [val[2] for val in unique_records.values()]    
 
             cur.execute("""
-                INSERT INTO bronze_course_data (id, course, info_json, status)
+                INSERT INTO bronze.course_data (course_id, course_code, course_info_payload, extraction_status)
                 SELECT * FROM UNNEST(%s::text[], %s::text[], %s::jsonb[], %s::text[])
-                ON CONFLICT (id) DO UPDATE SET
-                    course = EXCLUDED.course,
-                    info_json = EXCLUDED.info_json,
-                    status = CASE 
-                        WHEN bronze_course_data.status = 'PREREQS PULLED' THEN 'PREREQS PULLED'
-                        ELSE excluded.status
+                ON CONFLICT (course_id) DO UPDATE SET
+                    course_code = EXCLUDED.course_code,
+                    course_info_payload = EXCLUDED.course_info_payload,
+                    extraction_status = CASE 
+                        WHEN bronze.course_data.extraction_status = 'PREREQS PULLED' THEN 'PREREQS PULLED'
+                        ELSE excluded.extraction_status
                     END,
-                    last_seen = CURRENT_TIMESTAMP,
+                    last_seen_at = CURRENT_TIMESTAMP,
                     is_active = TRUE,
-                    updated = CASE 
-                        WHEN bronze_course_data.info_json IS DISTINCT FROM EXCLUDED.info_json 
+                    updated_at = CASE 
+                        WHEN bronze.course_data.course_info_payload IS DISTINCT FROM EXCLUDED.course_info_payload 
                         THEN CURRENT_TIMESTAMP 
-                        ELSE bronze_course_data.updated 
+                        ELSE bronze.course_data.updated_at
                     END
-                RETURNING id, updated
+                RETURNING course_id, updated_at
             """, (clean_ids, clean_courses, clean_info_jsons, clean_statuses))
             

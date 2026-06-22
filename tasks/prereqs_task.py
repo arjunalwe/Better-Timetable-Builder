@@ -41,13 +41,13 @@ def pull_prereqs(id: str):
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    UPDATE bronze_course_data
-                    SET last_seen = CURRENT_TIMESTAMP, is_active = TRUE, prereq_json = %s, status = %s,
-                    updated = CASE
-                        WHEN bronze_course_data.prereq_json IS DISTINCT FROM %s THEN CURRENT_TIMESTAMP
-                        ELSE bronze_course_data.updated
+                    UPDATE bronze.course_data
+                    SET last_seen_at = CURRENT_TIMESTAMP, is_active = TRUE, prerequisite_payload = %s, extraction_status = %s,
+                    updated_at = CASE
+                        WHEN bronze.course_data.prerequisite_payload IS DISTINCT FROM %s THEN CURRENT_TIMESTAMP
+                        ELSE bronze.course_data.updated_at
                     END
-                    WHERE id = %s
+                    WHERE course_id = %s
                     """,
                     (prereq_json, "PREREQS PULLED", prereq_json, id),
                 )

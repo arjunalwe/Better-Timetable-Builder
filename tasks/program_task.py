@@ -45,18 +45,18 @@ def pull_programs(program: str):
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    INSERT INTO bronze_program_data (id, name, json, status)
+                    INSERT INTO bronze.program_data (program_id, program_code, requirement_payload, extraction_status)
                     VALUES (%s, %s, %s, %s)
-                    ON CONFLICT (id) DO UPDATE SET
-                        name = EXCLUDED.name,
-                        json = EXCLUDED.json,
-                        status = EXCLUDED.status,
+                    ON CONFLICT (program_id) DO UPDATE SET
+                        program_code = EXCLUDED.program_code,
+                        requirement_payload = EXCLUDED.requirement_payload,
+                        extraction_status = EXCLUDED.extraction_status,
                         is_active = TRUE,
-                        last_seen = CURRENT_TIMESTAMP,
-                        updated = CASE 
-                            WHEN bronze_program_data.json IS DISTINCT FROM EXCLUDED.json 
+                        last_seen_at = CURRENT_TIMESTAMP,
+                        updated_at = CASE 
+                            WHEN bronze.program_data.requirement_payload IS DISTINCT FROM EXCLUDED.requirement_payload 
                             THEN CURRENT_TIMESTAMP 
-                            ELSE bronze_program_data.updated 
+                            ELSE bronze.program_data.updated_at
                         END
                     """,
                     (

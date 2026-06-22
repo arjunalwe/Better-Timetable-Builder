@@ -1,0 +1,12 @@
+better_ttb:
+  outputs:
+    dev:
+      host: "{{ env_var('DBT_PG_HOST') }}"
+      user: "{{ env_var('DBT_PG_USER') }}"
+      pass: "{{ env_var('DBT_PG_PASS') }}"
+      port: "{{ env_var('DBT_PG_PORT') | int }}"
+      dbname: "{{ env_var('DBT_PG_DBNAME') }}"
+      schema: "silver"
+      threads: 4
+      type: postgres
+  target: dev

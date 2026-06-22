@@ -16,17 +16,17 @@ def pull_categories(category: str):
         with get_db_pool().connection() as conn:
             with conn.cursor() as cur:
                 cur.execute("""
-                            INSERT INTO bronze_category_data(id, json, status)
+                            INSERT INTO bronze.category_data(category_id, category_payload, extraction_status)
                             VALUES(%s, %s, %s)
-                            ON CONFLICT (id) DO UPDATE SET
-                                status = EXCLUDED.status,
-                                json = EXCLUDED.json,
+                            ON CONFLICT (category_id) DO UPDATE SET
+                                extraction_status = EXCLUDED.extraction_status,
+                                category_payload = EXCLUDED.category_payload,
                                 is_active = TRUE,
-                                last_seen = CURRENT_TIMESTAMP,
-                                updated = CASE 
-                                    WHEN bronze_category_data.json IS DISTINCT FROM EXCLUDED.json 
+                                last_seen_at = CURRENT_TIMESTAMP,
+                                updated_at = CASE 
+                                    WHEN bronze.category_data.category_payload IS DISTINCT FROM EXCLUDED.category_payload 
                                     THEN CURRENT_TIMESTAMP 
-                                    ELSE bronze_category_data.updated 
+                                    ELSE bronze.category_data.updated_at 
                                 END 
                             """, (category, response, 'CATEGORY PULLED'))
                 

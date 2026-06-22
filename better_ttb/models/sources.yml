@@ -1,0 +1,7 @@
+sources:
+  - name: bronze
+    database: uoft_courses  
+    tables:
+      - name: course_data
+      - name: program_data
+      - name: category_data

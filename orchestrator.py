@@ -40,9 +40,9 @@ try:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT id FROM bronze_course_data 
-                WHERE prereq_json IS NULL 
-                OR last_seen <= CURRENT_TIMESTAMP - CAST(%s as INTERVAL);
+                SELECT course_id FROM bronze.course_data 
+                WHERE prerequisite_payload IS NULL 
+                OR last_seen_at <= CURRENT_TIMESTAMP - CAST(%s as INTERVAL);
                 """,
                 (MIN_FETCH_INTERVAL,),
             )
@@ -51,16 +51,16 @@ try:
 
             cur.execute(
                 """
-                SELECT id FROM bronze_program_data 
-                WHERE json IS NULL 
-                OR last_seen <= CURRENT_TIMESTAMP - CAST(%s as INTERVAL);
+                SELECT program_id FROM bronze.program_data 
+                WHERE requirement_payload IS NULL 
+                OR last_seen_at <= CURRENT_TIMESTAMP - CAST(%s as INTERVAL);
                 """,
                 (MIN_FETCH_INTERVAL,),
             )
 
             programs_stale = [i[0].split("-")[0] for i in cur.fetchall()]
 
-            cur.execute("SELECT id FROM bronze_program_data;")
+            cur.execute("SELECT program_id FROM bronze.program_data;")
             programs_all = [i[0].split("-")[0] for i in cur.fetchall()]
 
     programs = get_programs()
@@ -84,17 +84,17 @@ try:
             cur.execute("""
                         WITH extracted_pointers AS (
                             SELECT DISTINCT 
-                                (jsonb_path_query(json::jsonb, '$.** ? (@.categoryEntity == true).code'::jsonpath) #>> '{}') AS category_code
-                            FROM bronze_program_data
-                            WHERE json IS NOT NULL
+                                (jsonb_path_query(requirement_payload::jsonb, '$.** ? (@.categoryEntity == true).code'::jsonpath) #>> '{}') AS category_code
+                            FROM bronze.program_data
+                            WHERE requirement_payload IS NOT NULL
                         )
                         SELECT e.category_code
                         FROM extracted_pointers e
-                        LEFT JOIN bronze_category_data c 
-                            ON e.category_code = c.id
-                        WHERE c.id IS NULL 
-                        OR c.json IS NULL
-                        OR c.last_seen <= CURRENT_TIMESTAMP - CAST(%s as INTERVAL);
+                        LEFT JOIN bronze.category_data c 
+                            ON e.category_code = c.category_id
+                        WHERE c.category_id IS NULL 
+                        OR c.category_payload IS NULL
+                        OR c.last_seen_at <= CURRENT_TIMESTAMP - CAST(%s as INTERVAL);
                         """, (MIN_FETCH_INTERVAL,))
             
             categories = cur.fetchall()
@@ -112,15 +112,15 @@ finally:
     with get_db_pool().connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
-                "UPDATE bronze_course_data SET is_active = FALSE WHERE last_seen < %s;",
+                "UPDATE bronze.course_data SET is_active = FALSE WHERE last_seen_at < %s;",
                 (start_time,)
             )
             cur.execute(
-                "UPDATE bronze_program_data SET is_active = FALSE WHERE last_seen < %s;",
+                "UPDATE bronze.program_data SET is_active = FALSE WHERE last_seen_at < %s;",
                 (start_time,)
             )
             cur.execute(
-                "UPDATE bronze_category_data SET is_active = FALSE WHERE last_seen < %s;",
+                "UPDATE bronze.category_data SET is_active = FALSE WHERE last_seen_at < %s;",
                 (start_time,)
             )
 
